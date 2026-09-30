@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#6c63ff">
+<title>English B1 → B2 | Study Hub</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --primary:#6c63ff;
+  --secondary:#8f88ff;
+  --bg:#f5f6ff;
+  --card:#fff;
+  --text:#202134;
+  --muted:#74778c;
+  --success:#27ae60;
+  --danger:#e74c3c;
+  --warning:#f39c12;
+  --border:#e5e6f0;
+}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+button,input,select{font:inherit}
+button{cursor:pointer;border:0}
+.app{display:flex;min-height:100vh}
+
+/* SIDEBAR */
+.sidebar{
+  width:250px;
+  background:#17182a;
+  color:white;
+  padding:22px 15px;
+  position:fixed;
+  left:0;top:0;bottom:0;
+  z-index:50;
+  overflow-y:auto;
+}
+.logo{
+  font-size:21px;
+  font-weight:800;
+  padding:8px 12px 25px;
+}
+.logo span{color:#8d87ff}
+.nav-btn{
+  width:100%;
+  padding:13px 14px;
+  margin:4px 0;
+  border-radius:12px;
+  background:transparent;
+  color:#d8d8e7;
+  text-align:left;
+  transition:.2s;
+}
+.nav-btn:hover,.nav-btn.active{
+  background:#302e54;
+  color:white;
+}
+.nav-icon{display:inline-block;width:28px}
+
+.main{
+  margin-left:250px;
+  width:calc(100% - 250px);
+  min-height:100vh;
+}
+.topbar{
+  background:white;
+  border-bottom:1px solid var(--border);
+  padding:15px 25px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+.mobile-menu{display:none}
+.level{
+  background:#eeecff;
+  color:var(--primary);
+  padding:7px 13px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:700;
+}
+.content{padding:25px;max-width:1400px;margin:auto}
+.page{display:none}
+.page.active{display:block}
+
+h1{font-size:30px;margin-bottom:7px}
+.subtitle{color:var(--muted);margin-bottom:25px}
+
+/* DASHBOARD */
+.hero{
+  background:linear-gradient(135deg,#6259ef,#938cff);
+  color:white;
+  border-radius:22px;
+  padding:30px;
+  margin-bottom:22px;
+}
+.hero h1{font-size:31px}
+.hero p{opacity:.9;margin-top:7px}
+.hero-btn{
+  background:white;
+  color:var(--primary);
+  padding:12px 18px;
+  border-radius:12px;
+  margin-top:18px;
+  font-weight:700;
+}
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-bottom:22px;
+}
+.stat{
+  background:white;
+  padding:20px;
+  border-radius:17px;
+  border:1px solid var(--border);
+}
+.stat-icon{font-size:25px}
+.stat-value{font-size:27px;font-weight:800;margin:7px 0}
+.stat-label{color:var(--muted);font-size:14px}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:20px;
+}
+.card h3{margin-bottom:8px}
+.card p{color:var(--muted);line-height:1.6}
+
+/* TOPIC */
+.toolbar{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+.search{
+  flex:1;
+  min-width:220px;
+  padding:13px 16px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:white;
+  outline:none;
+}
+.search:focus{border-color:var(--primary)}
+.filter{
+  padding:13px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:white;
+}
+.topic-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:13px;
+}
+.topic{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:16px;
+  cursor:pointer;
+  transition:.2s;
+}
+.topic:hover{
+  transform:translateY(-2px);
+  border-color:var(--primary);
+  box-shadow:0 7px 20px #6259ef18;
+}
+.topic-num{
+  font-size:12px;
+  color:var(--primary);
+  font-weight:700;
+}
+.topic-title{font-weight:700;margin:6px 0}
+.topic-count{font-size:13px;color:var(--muted)}
+
+/* FLASHCARD */
+.flash-wrap{
+  max-width:700px;
+  margin:0 auto;
+}
+.flashcard{
+  min-height:370px;
+  background:white;
+  border-radius:25px;
+  border:1px solid var(--border);
+  box-shadow:0 12px 35px #20213412;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:35px;
+  cursor:pointer;
+  perspective:1000px;
+}
+.flash-inner{
+  width:100%;
+  transition:.3s;
+}
+.flash-front{display:block}
+.flash-back{display:none}
+.flashcard.flipped .flash-front{display:none}
+.flashcard.flipped .flash-back{display:block}
+.word{
+  font-size:42px;
+  font-weight:800;
+  color:var(--primary);
+  margin:15px 0;
+}
+.word-type{
+  color:var(--muted);
+  font-size:14px;
+}
+.meaning{
+  font-size:24px;
+  font-weight:700;
+}
+.example{
+  margin-top:16px;
+  color:#55586b;
+  line-height:1.6;
+}
+.audio-btn{
+  margin-top:20px;
+  background:#eeecff;
+  color:var(--primary);
+  padding:10px 16px;
+  border-radius:10px;
+}
+.flash-controls{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  margin-top:18px;
+}
+.btn{
+  padding:12px 18px;
+  border-radius:11px;
+  font-weight:700;
+}
+.btn-primary{background:var(--primary);color:white}
+.btn-success{background:#eaf8ef;color:var(--success)}
+.btn-danger{background:#fff0ef;color:var(--danger)}
+.btn-neutral{background:#e9eaf2;color:#383a4a}
+.flash-progress{
+  text-align:center;
+  color:var(--muted);
+  margin:15px;
+}
+
+/* GRAMMAR */
+.lesson{
+  margin-bottom:15px;
+}
+.lesson-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+}
+.lesson-body{
+  display:none;
+  margin-top:15px;
+  color:#56596b;
+  line-height:1.7;
+}
+.lesson.open .lesson-body{display:block}
+.formula{
+  background:#f5f4ff;
+  border-left:4px solid var(--primary);
+  padding:12px;
+  margin:12px 0;
+  border-radius:6px;
+  color:#37335f;
+}
+
+/* EXERCISE */
+.exercise-box{
+  max-width:800px;
+  margin:auto;
+}
+.question{
+  font-size:21px;
+  font-weight:700;
+  margin:20px 0;
+}
+.options{
+  display:grid;
+  gap:10px;
+}
+.option{
+  padding:15px;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+  text-align:left;
+}
+.option:hover{border-color:var(--primary)}
+.option.correct{background:#eaf8ef;border-color:var(--success)}
+.option.wrong{background:#fff0ef;border-color:var(--danger)}
+.feedback{
+  margin-top:15px;
+  padding:14px;
+  border-radius:10px;
+  display:none;
+}
+.feedback.show{display:block}
+
+/* REVIEW */
+.review-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+  margin-bottom:10px;
+}
+
+/* PROGRESS */
+.progress{
+  height:10px;
+  background:#e7e8f0;
+  border-radius:20px;
+  overflow:hidden;
+}
+.progress-bar{
+  height:100%;
+  background:var(--primary);
+  border-radius:20px;
+  width:0%;
+}
+
+/* MOBILE */
+@media(max-width:1000px){
+  .topic-grid{grid-template-columns:repeat(3,1fr)}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:750px){
+  .sidebar{
+    transform:translateX(-100%);
+    transition:.25s;
+  }
+  .sidebar.open{transform:translateX(0)}
+  .main{
+    margin-left:0;
+    width:100%;
+  }
+  .mobile-menu{
+    display:block;
+    background:transparent;
+    font-size:23px;
+  }
+  .topic-grid{grid-template-columns:repeat(2,1fr)}
+  .grid{grid-template-columns:1fr}
+  .word{font-size:34px}
+}
+@media(max-width:480px){
+  .content{padding:15px}
+  .stats{grid-template-columns:1fr 1fr}
+  .topic-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="logo">English <span>B1 → B2</span></div>
+
+  <button class="nav-btn active" onclick="showPage('home')">
+    <span class="nav-icon">🏠</span> Dashboard
+  </button>
+
+  <button class="nav-btn" onclick="showPage('topics')">
+    <span class="nav-icon">📚</span> Vocabulary
+  </button>
+
+  <button class="nav-btn" onclick="showPage('flashcards')">
+    <span class="nav-icon">🃏</span> Flashcards
+  </button>
+
+  <button class="nav-btn" onclick="showPage('grammar')">
+    <span class="nav-icon">📖</span> Grammar
+  </button>
+
+  <button class="nav-btn" onclick="showPage('exercise')">
+    <span class="nav-icon">✍️</span> Exercises
+  </button>
+
+  <button class="nav-btn" onclick="showPage('review')">
+    <span class="nav-icon">🔄</span> Review
+  </button>
+
+  <button class="nav-btn" onclick="showPage('progress')">
+    <span class="nav-icon">📊</span> Progress
+  </button>
+</aside>
+
+<main class="main">
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <button class="mobile-menu" onclick="toggleSidebar()">☰</button>
+  <strong>English Study Hub</strong>
+  <span class="level">B1 → B2</span>
+</header>
+
+<div class="content">
+
+<!-- HOME -->
+<section id="home" class="page active">
+
+  <div class="hero">
+    <h1>Ready to improve your English? 🚀</h1>
+    <p>Học từ vựng, ngữ pháp và luyện tập từ B1 lên B2.</p>
+    <button class="hero-btn" onclick="showPage('topics')">
+      Bắt đầu học →
+    </button>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-icon">📚</div>
+      <div class="stat-value" id="statWords">0</div>
+      <div class="stat-label">Từ đã học</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">🔄</div>
+      <div class="stat-value" id="statReview">0</div>
+      <div class="stat-label">Từ cần ôn</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">🔥</div>
+      <div class="stat-value" id="statStreak">0</div>
+      <div class="stat-label">Ngày học liên tiếp</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">🏆</div>
+      <div class="stat-value" id="statScore">0%</div>
+      <div class="stat-label">Điểm bài tập</div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h3>🃏 Flashcards</h3>
+      <p>Lật thẻ, nghe phát âm và đánh dấu từ bạn chưa nhớ.</p>
+      <br>
+      <button class="btn btn-primary" onclick="startFlashcards()">Học ngay</button>
+    </div>
+
+    <div class="card">
+      <h3>📖 Grammar</h3>
+      <p>Ôn toàn bộ các chủ điểm ngữ pháp quan trọng B1–B2.</p>
+      <br>
+      <button class="btn btn-primary" onclick="showPage('grammar')">Học grammar</button>
+    </div>
+
+    <div class="card">
+      <h3>✍️ Practice</h3>
+      <p>Làm bài tập và kiểm tra kết quả ngay sau mỗi câu.</p>
+      <br>
+      <button class="btn btn-primary" onclick="showPage('exercise')">Làm bài</button>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- TOPICS -->
+<section id="topics" class="page">
+  <h1>📚 Vocabulary</h1>
+  <p class="subtitle">Hơn 100 chủ đề B1–B2. Mỗi chủ đề có thể chứa tới 100 từ.</p>
+
+  <div class="toolbar">
+    <input
+      class="search"
+      id="topicSearch"
+      placeholder="🔍 Tìm chủ đề..."
+      oninput="renderTopics()"
+    >
+
+    <select class="filter" id="levelFilter" onchange="renderTopics()">
+      <option value="all">Tất cả</option>
+      <option value="B1">B1</option>
+      <option value="B2">B2</option>
+    </select>
+  </div>
+
+  <div class="topic-grid" id="topicGrid"></div>
+</section>
+
+
+<!-- FLASHCARDS -->
+<section id="flashcards" class="page">
+
+  <h1>🃏 Flashcards</h1>
+  <p class="subtitle" id="flashTopic">Chọn một chủ đề để bắt đầu.</p>
+
+  <div class="flash-wrap">
+
+    <div class="flashcard" id="flashcard" onclick="flipCard()">
+
+      <div class="flash-inner">
+
+        <div class="flash-front">
+          <div class="word-type" id="cardLevel">B1</div>
+          <div class="word" id="cardWord">Choose a topic</div>
+          <div class="word-type">Nhấn vào thẻ để xem đáp án</div>
+
+          <button
+            class="audio-btn"
+            onclick="event.stopPropagation(); speakCurrentWord()">
+            🔊 Nghe phát âm
+          </button>
+        </div>
+
+        <div class="flash-back">
+          <div class="meaning" id="cardMeaning">Meaning</div>
+          <div class="example" id="cardExample">Example</div>
+
+          <button
+            class="audio-btn"
+            onclick="event.stopPropagation(); speakCurrentWord()">
+            🔊 Nghe lại
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="flash-progress" id="flashProgress">0 / 0</div>
+
+    <div class="flash-controls">
+      <button class="btn btn-danger" onclick="markUnknown()">
+        ✕ Chưa nhớ
+      </button>
+
+      <button class="btn btn-neutral" onclick="nextCard()">
+        → Tiếp
+      </button>
+
+      <button class="btn btn-success" onclick="markKnown()">
+        ✓ Đã nhớ
+      </button>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- GRAMMAR -->
+<section id="grammar" class="page">
+
+  <h1>📖 Grammar B1 → B2</h1>
+  <p class="subtitle">Bấm vào từng bài để mở phần giải thích.</p>
+
+  <div id="grammarList"></div>
+
+</section>
+
+
+<!-- EXERCISE -->
+<section id="exercise" class="page">
+
+  <h1>✍️ Exercises</h1>
+  <p class="subtitle">Luyện grammar và vocabulary.</p>
+
+  <div class="exercise-box card">
+
+    <div id="exerciseContent"></div>
+
+  </div>
+
+</section>
+
+
+<!-- REVIEW -->
+<section id="review" class="page">
+
+  <h1>🔄 Review</h1>
+  <p class="subtitle">Các từ bạn đánh dấu “Chưa nhớ” sẽ xuất hiện ở đây.</p>
+
+  <div id="reviewList"></div>
+
+</section>
+
+
+<!-- PROGRESS -->
+<section id="progress" class="page">
+
+  <h1>📊 Progress</h1>
+  <p class="subtitle">Theo dõi quá trình học của bạn.</p>
+
+  <div class="card">
+    <h3>Tổng tiến độ từ vựng</h3>
+    <br>
+
+    <div class="progress">
+      <div class="progress-bar" id="totalProgress"></div>
+    </div>
+
+    <br>
+    <p id="progressText">0 / 0 từ</p>
+  </div>
+
+  <br>
+
+  <div class="grid">
+
+    <div class="card">
+      <h3>🟢 Đã nhớ</h3>
+      <p id="knownCount">0</p>
+    </div>
+
+    <div class="card">
+      <h3>🔴 Cần ôn</h3>
+      <p id="unknownCount">0</p>
+    </div>
+
+    <div class="card">
+      <h3>📚 Chủ đề</h3>
+      <p id="topicCount">0</p>
+    </div>
+
+  </div>
+
+</section>
+
+</div>
+</main>
+</div>
+
+
+<script>
+
+/* =====================================================
+   VOCABULARY DATABASE
+   ===================================================== */
+
+const vocabulary = [
+
+/* EDUCATION */
+{
+ topic:"Education",
+ level:"B1",
+ words:[
+  ["achieve","đạt được","She worked hard to achieve her goal."],
+  ["assignment","bài tập được giao","I have finished my English assignment."],
+  ["attend","tham dự","Students must attend the lesson."],
+  ["concentrate","tập trung","It is difficult to concentrate in a noisy room."],
+  ["course","khóa học","She joined an English course."],
+  ["degree","bằng cấp","He wants to get a university degree."],
+  ["exam","kỳ thi","The exam starts at nine."],
+  ["improve","cải thiện","I want to improve my English."],
+  ["knowledge","kiến thức","Reading increases your knowledge."],
+  ["subject","môn học","Math is my favorite subject."]
+ ]
+},
+
+/* ENVIRONMENT */
+{
+ topic:"Environment",
+ level:"B1",
+ words:[
+  ["environment","môi trường","We should protect the environment."],
+  ["pollution","sự ô nhiễm","Air pollution is a serious problem."],
+  ["recycle","tái chế","We should recycle plastic bottles."],
+  ["waste","rác thải","Food waste is increasing."],
+  ["climate","khí hậu","The climate is changing."],
+  ["forest","rừng","Many animals live in the forest."],
+  ["energy","năng lượng","Solar energy is becoming popular."],
+  ["natural","tự nhiên","We need to protect natural resources."],
+  ["reduce","giảm","We should reduce plastic use."],
+  ["protect","bảo vệ","Everyone can help protect nature."]
+ ]
+},
+
+/* TECHNOLOGY */
+{
+ topic:"Technology",
+ level:"B1",
+ words:[
+  ["device","thiết bị","This device is easy to use."],
+  ["download","tải xuống","You can download the application."],
+  ["upload","tải lên","Please upload the file."],
+  ["website","trang web","I found the information on a website."],
+  ["digital","kỹ thuật số","Digital technology changes our lives."],
+  ["online","trực tuyến","We had an online lesson."],
+  ["screen","màn hình","Don't look at the screen for too long."],
+  ["software","phần mềm","This software is free."],
+  ["technology","công nghệ","Technology develops quickly."],
+  ["access","truy cập","Students can access the course online."]
+ ]
+},
+
+/* HEALTH */
+{
+ topic:"Health",
+ level:"B1",
+ words:[
+  ["healthy","khỏe mạnh","Eating vegetables is healthy."],
+  ["exercise","tập thể dục","Regular exercise is important."],
+  ["disease","bệnh","Some diseases can be prevented."],
+  ["symptom","triệu chứng","A cough can be a symptom."],
+  ["treatment","phương pháp điều trị","The doctor suggested a treatment."],
+  ["medicine","thuốc","Take the medicine after eating."],
+  ["patient","bệnh nhân","The patient needs to rest."],
+  ["stress","căng thẳng","Too much stress is unhealthy."],
+  ["recover","hồi phục","She recovered quickly."],
+  ["prevent","ngăn ngừa","Exercise can help prevent illness."]
+ ]
+},
+
+/* TRAVEL */
+{
+ topic:"Travel",
+ level:"B1",
+ words:[
+  ["journey","hành trình","The journey took five hours."],
+  ["destination","điểm đến","Paris is a popular destination."],
+  ["luggage","hành lý","My luggage is very heavy."],
+  ["passport","hộ chiếu","Don't forget your passport."],
+  ["ticket","vé","I bought a train ticket."],
+  ["airport","sân bay","We arrived at the airport early."],
+  ["tourist","khách du lịch","The city attracts many tourists."],
+  ["hotel","khách sạn","We stayed in a small hotel."],
+  ["explore","khám phá","We want to explore the city."],
+  ["culture","văn hóa","I love learning about different cultures."]
+ ]
+},
+
+/* FOOD */
+{
+ topic:"Food",
+ level:"B1",
+ words:[
+  ["ingredient","nguyên liệu","What are the main ingredients?"],
+  ["recipe","công thức nấu ăn","I found a new recipe."],
+  ["delicious","ngon","The meal was delicious."],
+  ["healthy","lành mạnh","Fruit is a healthy snack."],
+  ["meal","bữa ăn","Breakfast is my favorite meal."],
+  ["flavor","hương vị","This soup has a strong flavor."],
+  ["spicy","cay","I don't like very spicy food."],
+  ["boil","luộc","Boil the vegetables for five minutes."],
+  ["bake","nướng bánh","She likes to bake cakes."],
+  ["taste","nếm / vị","This sauce tastes great."]
+ ]
+},
+
+/* WORK */
+{
+ topic:"Work",
+ level:"B1",
+ words:[
+  ["career","sự nghiệp","She wants a successful career."],
+  ["employee","nhân viên","The company has many employees."],
+  ["employer","người sử dụng lao động","The employer offered him a job."],
+  ["salary","lương","The salary is quite good."],
+  ["interview","phỏng vấn","I have a job interview tomorrow."],
+  ["experience","kinh nghiệm","He has five years of experience."],
+  ["responsibility","trách nhiệm","This job has many responsibilities."],
+  ["colleague","đồng nghiệp","My colleagues are friendly."],
+  ["skill","kỹ năng","Communication is an important skill."],
+  ["professional","chuyên nghiệp","She is very professional."]
+ ]
+},
+
+/* SOCIETY */
+{
+ topic:"Society",
+ level:"B2",
+ words:[
+  ["community","cộng đồng","The local community organized an event."],
+  ["equality","sự bình đẳng","Everyone deserves equality."],
+  ["poverty","nghèo đói","The organization works to reduce poverty."],
+  ["inequality","bất bình đẳng","Economic inequality remains a problem."],
+  ["society","xã hội","Technology affects modern society."],
+  ["individual","cá nhân","Every individual has rights."],
+  ["generation","thế hệ","Different generations may have different views."],
+  ["minority","thiểu số","The law protects minority groups."],
+  ["volunteer","tình nguyện viên","She works as a volunteer."],
+  ["charity","tổ chức từ thiện","They donated money to charity."]
+ ]
+},
+
+/* MEDIA */
+{
+ topic:"Media",
+ level:"B2",
+ words:[
+  ["journalist","nhà báo","The journalist interviewed the politician."],
+  ["headline","tiêu đề","The headline attracted attention."],
+  ["broadcast","phát sóng","The program was broadcast live."],
+  ["audience","khán giả","The show has a large audience."],
+  ["article","bài báo","I read an interesting article."],
+  ["source","nguồn","Always check the source."],
+  ["report","bản tin / báo cáo","The newspaper published a report."],
+  ["publish","xuất bản","The article was published yesterday."],
+  ["editor","biên tập viên","The editor changed the headline."],
+  ["content","nội dung","The website has useful content."]
+ ]
+},
+
+/* SCIENCE */
+{
+ topic:"Science",
+ level:"B2",
+ words:[
+  ["research","nghiên cứu","Scientists are conducting research."],
+  ["experiment","thí nghiệm","The experiment produced interesting results."],
+  ["evidence","bằng chứng","There is strong evidence."],
+  ["theory","lý thuyết","The theory explains the phenomenon."],
+  ["laboratory","phòng thí nghiệm","The students worked in the laboratory."],
+  ["scientist","nhà khoa học","The scientist discovered a new species."],
+  ["chemical","hóa chất","Some chemicals are dangerous."],
+  ["discover","phát hiện","Scientists discovered a new planet."],
+  ["analysis","sự phân tích","The data requires careful analysis."],
+  ["result","kết quả","The results were surprising."]
+ ]
+},
+
+/* BUSINESS */
+{
+ topic:"Business",
+ level:"B2",
+ words:[
+  ["company","công ty","The company expanded rapidly."],
+  ["profit","lợi nhuận","The business made a large profit."],
+  ["customer","khách hàng","Customers expect good service."],
+  ["product","sản phẩm","The company launched a new product."],
+  ["market","thị trường","The company entered a new market."],
+  ["investment","đầu tư","The project needs more investment."],
+  ["strategy","chiến lược","They developed a marketing strategy."],
+  ["economy","nền kinh tế","The economy is growing."],
+  ["consumer","người tiêu dùng","Consumers have many choices."],
+  ["advertise","quảng cáo","Companies advertise their products online."]
+ ]
+}
+];
+
+
+/* =====================================================
+   110+ TOPICS
+   ===================================================== */
+
+const topicNames = [
+"Education","School Life","Exams","Study Skills","Learning Methods",
+"University","Academic English","English Learning","Languages","Teachers",
+"Family","Friendship","Relationships","Teenagers","Childhood",
+"Personality","Emotions","Communication","Social Skills","Community",
+"Society","Equality","Human Rights","Poverty","Volunteering",
+"Health","Exercise","Medicine","Diseases","Nutrition",
+"Mental Wellbeing","Healthy Lifestyle","Hospitals","Doctors","First Aid",
+"Food","Cooking","Restaurants","Eating Habits","Food Culture",
+"Travel","Tourism","Hotels","Airports","Transport",
+"Public Transport","Road Safety","Adventure","Travel Problems","Tourist Attractions",
+"Environment","Climate Change","Pollution","Recycling","Global Warming",
+"Energy","Renewable Energy","Forests","Oceans","Wildlife",
+"Animals","Plants","Agriculture","Natural Disasters","Water",
+"Technology","Internet","Social Media","Artificial Intelligence","Robotics",
+"Computers","Smartphones","Cybersecurity","Online Learning","Digital Life",
+"Science","Physics","Chemistry","Biology","Space",
+"Psychology","Research","Inventions","Engineering","Medicine Science",
+"Work","Jobs","Careers","Business","Money",
+"Banking","Personal Finance","Economics","Marketing","Advertising",
+"Shopping","Consumerism","Fashion","Housing","Architecture",
+"Cities","Rural Life","Urban Problems","Public Services","Infrastructure",
+"Media","News","Journalism","Television","Films",
+"Music","Books","Literature","Art","Photography",
+"Culture","Traditions","Festivals","History","Geography",
+"Politics","Government","Law","Crime","Justice",
+"International Relations","Globalization","Migration","International Development","Global Issues",
+"Future","Dreams","Goals","Success","Failure",
+"Motivation","Leadership","Problem Solving","Critical Thinking","Decision Making",
+"Formal English","Phrasal Verbs","Collocations","Word Formation","Idioms"
+];
+
+
+/* =====================================================
+   CREATE TOPICS
+   ===================================================== */
+
+function getTopicData(name){
+
+  const found=vocabulary.find(v=>v.topic.toLowerCase()===name.toLowerCase());
+
+  if(found) return found;
+
+  return {
+    topic:name,
+    level:"B1",
+    words:[]
+  };
+}
+
+
+/* =====================================================
+   STATE
+   ===================================================== */
+
+let state=JSON.parse(localStorage.getItem("englishB1B2State"))||{
+  known:[],
+  review:[],
+  scoreCorrect:0,
+  scoreTotal:0,
+  streak:0,
+  lastStudy:null
+};
+
+function saveState(){
+  localStorage.setItem(
+    "englishB1B2State",
+    JSON.stringify(state)
+  );
+  updateDashboard();
+}
+
+
+/* =====================================================
+   PAGE NAVIGATION
+   ===================================================== */
+
+function showPage(id){
+
+  document.querySelectorAll(".page").forEach(p=>{
+    p.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+
+  document.querySelectorAll(".nav-btn").forEach(b=>{
+    b.classList.remove("active");
+  });
+
+  const btn=[...document.querySelectorAll(".nav-btn")]
+    .find(b=>b.getAttribute("onclick")?.includes("'"+id+"'"));
+
+  if(btn) btn.classList.add("active");
+
+  if(id==="topics") renderTopics();
+  if(id==="review") renderReview();
+  if(id==="progress") updateProgress();
+  if(id==="grammar") renderGrammar();
+  if(id==="exercise") renderExercise();
+
+  document.getElementById("sidebar").classList.remove("open");
+
+  window.scrollTo(0,0);
+}
+
+function toggleSidebar(){
+  document.getElementById("sidebar").classList.toggle("open");
+}
+
+
+/* =====================================================
+   TOPICS
+   ===================================================== */
+
+function renderTopics(){
+
+  const search=
+    document.getElementById("topicSearch")?.value
+    .toLowerCase()||"";
+
+  const level=
+    document.getElementById("levelFilter")?.value||"all";
+
+  const grid=document.getElementById("topicGrid");
+
+  if(!grid)return;
+
+  grid.innerHTML="";
+
+  topicNames
+    .filter(name=>name.toLowerCase().includes(search))
+    .forEach((name,index)=>{
+
+      const data=getTopicData(name);
+
+      if(level!=="all" && data.level!==level && data.words.length>0)
+        return;
+
+      const div=document.createElement("div");
+
+      div.className="topic";
+
+      div.innerHTML=`
+        <div class="topic-num">TOPIC ${index+1}</div>
+        <div class="topic-title">${name}</div>
+        <div class="topic-count">
+          ${data.words.length || "Chưa thêm dữ liệu"} từ
+          ${data.words.length ? " • "+data.level : ""}
+        </div>
+      `;
+
+      div.onclick=()=>{
+
+        if(data.words.length===0){
+
+          alert(
+            "Chủ đề này đã được tạo trong hệ thống nhưng dữ liệu từ vựng chưa được thêm vào bản demo."
+          );
+
+          return;
+        }
+
+        startFlashcards(name);
+      };
+
+      grid.appendChild(div);
+    });
+}
+
+
+/* =====================================================
+   FLASHCARDS
+   ===================================================== */
+
+let currentDeck=[];
+let currentIndex=0;
+let currentTopic="";
+
+function startFlashcards(topic){
+
+  if(!topic){
+
+    const available=vocabulary.find(v=>v.words.length);
+
+    if(!available)return;
+
+    topic=available.topic;
+  }
+
+  const data=getTopicData(topic);
+
+  if(!data.words.length){
+    alert("Chủ đề này chưa có dữ liệu.");
+    return;
+  }
+
+  currentTopic=topic;
+
+  currentDeck=data.words.map((x,i)=>({
+    id:topic+"-"+i,
+    word:x[0],
+    meaning:x[1],
+    example:x[2],
+    level:data.level
+  }));
+
+  currentIndex=0;
+
+  showPage("flashcards");
+
+  loadCard();
+}
+
+function loadCard(){
+
+  if(!currentDeck.length)return;
+
+  const card=currentDeck[currentIndex];
+
+  document.getElementById("flashcard")
+    .classList.remove("flipped");
+
+  document.getElementById("cardWord").textContent=card.word;
+  document.getElementById("cardMeaning").textContent=card.meaning;
+  document.getElementById("cardExample").textContent=card.example;
+  document.getElementById("cardLevel").textContent=card.level;
+
+  document.getElementById("flashTopic").textContent=
+    currentTopic;
+
+  document.getElementById("flashProgress").textContent=
+    `${currentIndex+1} / ${currentDeck.length}`;
+}
+
+function flipCard(){
+  document.getElementById("flashcard")
+    .classList.toggle("flipped");
+}
+
+function nextCard(){
+
+  if(!currentDeck.length)return;
+
+  currentIndex++;
+
+  if(currentIndex>=currentDeck.length){
+    currentIndex=0;
+  }
+
+  loadCard();
+}
+
+function markKnown(){
+
+  const card=currentDeck[currentIndex];
+
+  if(!state.known.includes(card.id)){
+    state.known.push(card.id);
+  }
+
+  state.review=state.review.filter(x=>x!==card.id);
+
+  saveState();
+  nextCard();
+}
+
+function markUnknown(){
+
+  const card=currentDeck[currentIndex];
+
+  if(!state.review.includes(card.id)){
+    state.review.push(card.id);
+  }
+
+  saveState();
+  nextCard();
+}
+
+
+/* =====================================================
+   PRONUNCIATION
+   ===================================================== */
+
+function speak(text){
+
+  if(!("speechSynthesis" in window)){
+    alert("Trình duyệt của bạn không hỗ trợ đọc tiếng Anh.");
+    return;
+  }
+
+  speechSynthesis.cancel();
+
+  const utterance=
+    new SpeechSynthesisUtterance(text);
+
+  utterance.lang="en-US";
+  utterance.rate=.82;
+  utterance.pitch=1;
+
+  speechSynthesis.speak(utterance);
+}
+
+function speakCurrentWord(){
+
+  if(!currentDeck.length)return;
+
+  speak(currentDeck[currentIndex].word);
+}
+
+
+/* =====================================================
+   GRAMMAR
+   ===================================================== */
+
+const grammarLessons=[
+
+{
+ title:"Present Perfect",
+ level:"B1",
+ body:`
+ <p>Dùng để nói về hành động đã xảy ra nhưng có liên hệ với hiện tại.</p>
+ <div class="formula">
+ have/has + V3
+ </div>
+ <p><b>Example:</b> I have finished my homework.</p>
+ <p>She has lived here for five years.</p>
+ `
+},
+
+{
+ title:"Past Perfect",
+ level:"B1",
+ body:`
+ <p>Dùng để nói về một hành động xảy ra trước một hành động khác trong quá khứ.</p>
+ <div class="formula">
+ had + V3
+ </div>
+ <p><b>Example:</b> She had left before I arrived.</p>
+ `
+},
+
+{
+ title:"Future Forms",
+ level:"B1",
+ body:`
+ <p>Will, be going to và present continuous có thể được dùng để nói về tương lai.</p>
+ <div class="formula">
+ will + V<br>
+ be going to + V<br>
+ am/is/are + V-ing
+ </div>
+ `
+},
+
+{
+ title:"First Conditional",
+ level:"B1",
+ body:`
+ <p>Dùng cho điều kiện có khả năng xảy ra.</p>
+ <div class="formula">
+ If + present simple, will + V
+ </div>
+ <p>If it rains, we will stay home.</p>
+ `
+},
+
+{
+ title:"Second Conditional",
+ level:"B1-B2",
+ body:`
+ <p>Dùng cho tình huống giả định hoặc khó xảy ra ở hiện tại/tương lai.</p>
+ <div class="formula">
+ If + past simple, would + V
+ </div>
+ <p>If I had more time, I would travel more.</p>
+ `
+},
+
+{
+ title:"Third Conditional",
+ level:"B2",
+ body:`
+ <p>Dùng để nói về một điều kiện không xảy ra trong quá khứ.</p>
+ <div class="formula">
+ If + had + V3, would have + V3
+ </div>
+ <p>If I had studied harder, I would have passed.</p>
+ `
+},
+
+{
+ title:"Passive Voice",
+ level:"B1-B2",
+ body:`
+ <p>Câu bị động tập trung vào hành động hoặc đối tượng nhận hành động.</p>
+ <div class="formula">
+ be + V3
+ </div>
+ <p>The book was written in 2020.</p>
+ `
+},
+
+{
+ title:"Reported Speech",
+ level:"B2",
+ body:`
+ <p>Dùng để thuật lại lời nói của người khác.</p>
+ <div class="formula">
+ Direct: “I am tired.”<br>
+ Reported: She said that she was tired.
+ </div>
+ `
+},
+
+{
+ title:"Relative Clauses",
+ level:"B1-B2",
+ body:`
+ <p>Dùng who, which, that, whose, where để bổ sung thông tin.</p>
+ <div class="formula">
+ who → people<br>
+ which → things<br>
+ whose → possession<br>
+ where → places
+ </div>
+ `
+},
+
+{
+ title:"Gerunds and Infinitives",
+ level:"B2",
+ body:`
+ <p>Một số động từ đi với V-ing, một số đi với to + V.</p>
+ <div class="formula">
+ enjoy + V-ing<br>
+ want + to V<br>
+ avoid + V-ing
+ </div>
+ `
+},
+
+{
+ title:"Modal Verbs",
+ level:"B1",
+ body:`
+ <p>Can, could, may, might, must, should...</p>
+ <div class="formula">
+ must → obligation<br>
+ should → advice<br>
+ might → possibility
+ </div>
+ `
+},
+
+{
+ title:"Articles",
+ level:"B1",
+ body:`
+ <p>Cách sử dụng a, an và the.</p>
+ <div class="formula">
+ a/an → một đối tượng chưa xác định<br>
+ the → đối tượng đã xác định
+ </div>
+ `
+},
+
+{
+ title:"Comparatives and Superlatives",
+ level:"B1",
+ body:`
+ <p>Dùng để so sánh người hoặc vật.</p>
+ <div class="formula">
+ bigger than<br>
+ more interesting than<br>
+ the biggest<br>
+ the most interesting
+ </div>
+ `
+},
+
+{
+ title:"Wish and If Only",
+ level:"B2",
+ body:`
+ <p>Dùng để nói về điều ước hoặc sự tiếc nuối.</p>
+ <div class="formula">
+ wish + past simple → hiện tại<br>
+ wish + had + V3 → quá khứ
+ </div>
+ `
+},
+
+{
+ title:"Causative Have",
+ level:"B2",
+ body:`
+ <p>Dùng khi nhờ hoặc thuê ai đó làm việc gì.</p>
+ <div class="formula">
+ have + object + V3
+ </div>
+ <p>I had my hair cut.</p>
+ `
+}
+
+];
+
+function renderGrammar(){
+
+  const list=document.getElementById("grammarList");
+
+  list.innerHTML="";
+
+  grammarLessons.forEach((lesson,index)=>{
+
+    const div=document.createElement("div");
+
+    div.className="card lesson";
+
+    div.innerHTML=`
+      <div class="lesson-head">
+        <div>
+          <h3>${index+1}. ${lesson.title}</h3>
+          <small>${lesson.level}</small>
+        </div>
+        <span>＋</span>
+      </div>
+
+      <div class="lesson-body">
+        ${lesson.body}
+      </div>
+    `;
+
+    div.querySelector(".lesson-head").onclick=()=>{
+      div.classList.toggle("open");
+    };
+
+    list.appendChild(div);
+  });
+}
+
+
+/* =====================================================
+   EXERCISES
+   ===================================================== */
+
+const exercises=[
+
+{
+ q:"She _____ her homework already.",
+ options:["finished","has finished","finish","finishing"],
+ answer:1,
+ explanation:"Already thường đi với Present Perfect trong dạng này."
+},
+
+{
+ q:"If I had more time, I _____ another language.",
+ options:["learn","will learn","would learn","learned"],
+ answer:2,
+ explanation:"Đây là Second Conditional: If + past simple, would + V."
+},
+
+{
+ q:"The book _____ by a famous author.",
+ options:["wrote","was written","writes","writing"],
+ answer:1,
+ explanation:"Đây là câu bị động: be + V3."
+},
+
+{
+ q:"She enjoys _____ English books.",
+ options:["read","to read","reading","reads"],
+ answer:2,
+ explanation:"Enjoy + V-ing."
+},
+
+{
+ q:"He said that he _____ tired.",
+ options:["is","was","be","has"],
+ answer:1,
+ explanation:"Trong reported speech, thì thường lùi từ is → was."
+},
+
+{
+ q:"This is the school _____ I studied.",
+ options:["who","which","where","whose"],
+ answer:2,
+ explanation:"Where được dùng cho địa điểm."
+}
+
+];
+
+let exerciseIndex=0;
+
+function renderExercise(){
+
+  const box=document.getElementById("exerciseContent");
+
+  const ex=exercises[exerciseIndex];
+
+  box.innerHTML=`
+
+    <div>
+      <b>Câu ${exerciseIndex+1} / ${exercises.length}</b>
+    </div>
+
+    <div class="question">
+      ${ex.q}
+    </div>
+
+    <div class="options">
+      ${ex.options.map((op,i)=>`
+        <button
+          class="option"
+          onclick="answerExercise(${i})">
+          ${String.fromCharCode(65+i)}. ${op}
+        </button>
+      `).join("")}
+    </div>
+
+    <div class="feedback" id="feedback"></div>
+
+    <br>
+
+    <button class="btn btn-neutral"
+      onclick="nextExercise()">
+      Câu tiếp →
+    </button>
+  `;
+}
+
+function answerExercise(choice){
+
+  const ex=exercises[exerciseIndex];
+
+  document.querySelectorAll(".option")
+    .forEach((btn,i)=>{
+
+      btn.disabled=true;
+
+      if(i===ex.answer)
+        btn.classList.add("correct");
+
+      if(i===choice && i!==ex.answer)
+        btn.classList.add("wrong");
+    });
+
+  const feedback=document.getElementById("feedback");
+
+  if(choice===ex.answer){
+
+    state.scoreCorrect++;
+
+    feedback.textContent="✓ Chính xác! "+ex.explanation;
+    feedback.style.background="#eaf8ef";
+
+  }else{
+
+    feedback.textContent=
+      "✕ Chưa đúng. "+ex.explanation;
+
+    feedback.style.background="#fff0ef";
+  }
+
+  state.scoreTotal++;
+
+  feedback.classList.add("show");
+
+  saveState();
+}
+
+function nextExercise(){
+
+  exerciseIndex++;
+
+  if(exerciseIndex>=exercises.length)
+    exerciseIndex=0;
+
+  renderExercise();
+}
+
+
+/* =====================================================
+   REVIEW
+   ===================================================== */
+
+function renderReview(){
+
+  const list=document.getElementById("reviewList");
+
+  list.innerHTML="";
+
+  if(state.review.length===0){
+
+    list.innerHTML=`
+      <div class="card">
+        🎉 Hiện tại bạn không có từ nào cần ôn!
+      </div>
+    `;
+
+    return;
+  }
+
+  state.review.forEach(id=>{
+
+    const parts=id.split("-");
+    const topic=parts.slice(0,-1).join("-");
+    const index=Number(parts[parts.length-1]);
+
+    const data=getTopicData(topic);
+
+    if(!data.words[index])return;
+
+    const word=data.words[index];
+
+    const div=document.createElement("div");
+
+    div.className="review-item";
+
+    div.innerHTML=`
+      <div>
+        <b>${word[0]}</b>
+        <br>
+        <small>${word[1]}</small>
+      </div>
+
+      <button class="btn btn-primary"
+        onclick="speak('${word[0].replace(/'/g,"\\'")}')">
+        🔊
+      </button>
+    `;
+
+    list.appendChild(div);
+  });
+}
+
+
+/* =====================================================
+   DASHBOARD
+   ===================================================== */
+
+function getTotalWords(){
+
+  return vocabulary.reduce(
+    (sum,v)=>sum+v.words.length,
+    0
+  );
+}
+
+function updateDashboard(){
+
+  document.getElementById("statWords").textContent=
+    state.known.length;
+
+  document.getElementById("statReview").textContent=
+    state.review.length;
+
+  document.getElementById("statStreak").textContent=
+    state.streak;
+
+  const score=
+    state.scoreTotal===0
+      ?0
+      :Math.round(
+        state.scoreCorrect/state.scoreTotal*100
+      );
+
+  document.getElementById("statScore").textContent=
+    score+"%";
+}
+
+function updateProgress(){
+
+  const total=getTotalWords();
+
+  const known=state.known.length;
+
+  const percent=
+    total ? Math.round(known/total*100) : 0;
+
+  document.getElementById("totalProgress")
+    .style.width=percent+"%";
+
+  document.getElementById("progressText")
+    .textContent=
+    `${known} / ${total} từ (${percent}%)`;
+
+  document.getElementById("knownCount")
+    .textContent=known;
+
+  document.getElementById("unknownCount")
+    .textContent=
+      state.review.length;
+
+  document.getElementById("topicCount")
+    .textContent=topicNames.length;
+}
+
+
+/* =====================================================
+   STREAK
+   ===================================================== */
+
+function updateStreak(){
+
+  const today=new Date()
+    .toISOString()
+    .slice(0,10);
+
+  if(state.lastStudy===today)return;
+
+  const yesterday=new Date();
+
+  yesterday.setDate(
+    yesterday.getDate()-1
+  );
+
+  const y=
+    yesterday.toISOString()
+      .slice(0,10);
+
+  if(state.lastStudy===y){
+
+    state.streak++;
+
+  }else{
+
+    state.streak=1;
+
+  }
+
+  state.lastStudy=today;
+
+  saveState();
+}
+
+
+/* =====================================================
+   INITIALIZE
+   ===================================================== */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+  renderTopics();
+  renderGrammar();
+  renderExercise();
+  updateDashboard();
+  updateProgress();
+
+  updateStreak();
+
+});
+
+</script>
+
+</body>
+</html>
